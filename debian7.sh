@@ -29,7 +29,7 @@ sed -i 's/AcceptEnv/#AcceptEnv/g' /etc/ssh/sshd_config
 service ssh restart
 
 # set repo
-wget -O /etc/apt/sources.list "https://raw.githubusercontent.com/ForNesiaFreak/FNS_Debian7/fornesia.com/null/sources.list.debian7"
+wget -O /etc/apt/sources.list "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/repo/sources.list.debian7"
 wget "http://www.dotdeb.org/dotdeb.gpg"
 wget "http://www.webmin.com/jcameron-key.asc"
 cat dotdeb.gpg | apt-key add -;rm dotdeb.gpg
@@ -65,37 +65,37 @@ echo 'echo -e ""' >> .bashrc
 cd
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
-wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/rizal180499/Auto-Installer-VPS/master/conf/nginx.conf"
+wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/webserver/nginx.conf"
 mkdir -p /home/vps/public_html
 echo "<pre>Setup by Rizal Hidayat | 081515292117</pre>" > /home/vps/public_html/index.html
-wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/nifira123/debian7_32bit/master/vps.conf"
+wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/webserver/vps.conf"
 service nginx restart
 
 # install openvpn
-wget -O /etc/openvpn/openvpn.tar "https://raw.github.com/arieonline/autoscript/master/conf/openvpn-debian.tar"
+wget -O /etc/openvpn/openvpn.tar "https://github.com/iryadinata/debian7_32bit/raw/master/openvpn/openvpn-debian.tar"
 cd /etc/openvpn/
 tar xf openvpn.tar
-wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/rizal180499/Auto-Installer-VPS/master/conf/1194.conf"
+wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/openvpn/1194.conf"
 service openvpn restart
 sysctl -w net.ipv4.ip_forward=1
 sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g' /etc/sysctl.conf
 iptables -t nat -I POSTROUTING -s 192.168.100.0/24 -o eth0 -j MASQUERADE
 iptables-save > /etc/iptables_yg_baru_dibikin.conf
-wget -O /etc/network/if-up.d/iptables "https://raw.githubusercontent.com/nifira123/debian7_32bit/master/iptables"
+wget -O /etc/network/if-up.d/iptables "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/openvpn/iptables"
 chmod +x /etc/network/if-up.d/iptables
 service openvpn restart
 
 #konfigurasi openvpn
 cd /etc/openvpn/
-wget -O /etc/openvpn/client.ovpn "https://raw.githubusercontent.com/nifira123/debian7_32bit/master/client-1194.conf"
+wget -O /etc/openvpn/client.ovpn "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/openvpn/client-1194.conf"
 sed -i $MYIP2 /etc/openvpn/client.ovpn;
 cp client.ovpn /home/vps/public_html/
 
 cd
 # install badvpn
-wget -O /usr/bin/badvpn-udpgw "https://github.com/ForNesiaFreak/FNS/raw/master/sett/badvpn-udpgw"
+wget -O /usr/bin/badvpn-udpgw "https://github.com/iryadinata/debian7_32bit/raw/master/badvpn/badvpn-udpgw"
 if [ "$OS" == "x86_64" ]; then
-  wget -O /usr/bin/badvpn-udpgw "https://github.com/ForNesiaFreak/FNS/raw/master/sett/badvpn-udpgw64"
+  wget -O /usr/bin/badvpn-udpgw "https://github.com/iryadinata/debian7_32bit/raw/master/badvpn/badvpn-udpgw64"
 fi
 sed -i '$ i\screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300' /etc/rc.local
 chmod +x /usr/bin/badvpn-udpgw
@@ -121,7 +121,7 @@ cd
 
 # install squid3
 apt-get -y install squid3
-wget -O /etc/squid3/squid.conf "https://raw.githubusercontent.com/nifira123/debian7_32bit/master/squid3.conf"
+wget -O /etc/squid3/squid.conf "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/squid3/squid3.conf"
 sed -i $MYIP2 /etc/squid3/squid.conf;
 service squid3 restart
 
@@ -135,15 +135,15 @@ service webmin restart
 
 # download script
 cd /usr/bin
-wget -O menu "https://raw.githubusercontent.com/nifira123/debian7_32bit/master/menu.sh"
-wget -O usernew "https://raw.githubusercontent.com/nifira123/debian7_32bit/master/usernew.sh"
-wget -O trial "https://raw.githubusercontent.com/nifira123/debian7_32bit/master/trial.sh"
-wget -O hapus "https://raw.githubusercontent.com/nifira123/debian7_32bit/master/hapus.sh"
-wget -O login "https://raw.githubusercontent.com/nifira123/debian7_32bit/master/user-login.sh"
-wget -O member "https://raw.githubusercontent.com/nifira123/debian7_32bit/master/user-list.sh"
-wget -O resvis "https://raw.githubusercontent.com/nifira123/debian7_32bit/master/resvis.sh"
-wget -O speedtest "https://raw.githubusercontent.com/ForNesiaFreak/FNS_Debian7/fornesia.com/null/speedtest_cli.py"
-wget -O about "https://raw.githubusercontent.com/nifira123/debian7_32bit/master/about.sh"
+wget -O menu "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/script/menu.sh"
+wget -O usernew "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/script/usernew.sh"
+wget -O trial "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/script/trial.sh"
+wget -O hapus "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/script/hapus.sh"
+wget -O login "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/script/user-login.sh"
+wget -O member "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/script/user-list.sh"
+wget -O resvis "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/script/resvis.sh"
+wget -O speedtest "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/script/speedtest_cli.py"
+wget -O about "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/script/about.sh"
 echo "0 0 * * * root /usr/bin/reboot" > /etc/cron.d/reboot
 echo "* * * * * service dropbear restart" > /etc/cron.d/dropbear
 chmod +x menu
