@@ -1,1 +1,2 @@
-# debian7_32bit Mod by Iryadinata
+Automatic Script Installer
+Debian 7 32bit
