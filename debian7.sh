@@ -79,12 +79,10 @@ wget -O /etc/openvpn/1194.conf "https://raw.githubusercontent.com/iryadinata/deb
 service openvpn restart
 sysctl -w net.ipv4.ip_forward=1
 sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g' /etc/sysctl.conf
-wget -O /etc/iptables.up.rules "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/openvpn/iptables"
-sed -i '$ i\iptables-restore < /etc/iptables.up.rules' /etc/rc.local
-MYIP=`curl -s ifconfig.me`;
-MYIP2="s/xxxxxxxxx/$MYIP/g";
-sed -i $MYIP2 /etc/iptables.up.rules;
-iptables-restore < /etc/iptables.up.rules
+iptables -t nat -I POSTROUTING -s 192.168.100.0/24 -o eth0 -j MASQUERADE
+iptables-save > /etc/iptables_yg_baru_dibikin.conf
+wget -O /etc/network/if-up.d/iptables "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/openvpn/iptables"
+chmod +x /etc/network/if-up.d/iptables
 service openvpn restart
 
 #konfigurasi openvpn
@@ -146,7 +144,7 @@ wget -O member "https://raw.githubusercontent.com/iryadinata/debian7_32bit/maste
 wget -O resvis "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/script/resvis.sh"
 wget -O speedtest "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/script/speedtest_cli.py"
 wget -O about "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/script/about.sh"
-echo "0 0 * * * root /usr/bin/reboot" > /etc/cron.d/reboot
+# echo "0 0 * * * root /usr/bin/reboot" > /etc/cron.d/reboot
 echo "* * * * * service dropbear restart" > /etc/cron.d/dropbear
 chmod +x menu
 chmod +x usernew
@@ -209,7 +207,7 @@ echo "Modified by Iryadinata"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "Log Instalasi --> /root/log-install.txt"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
-echo "VPS AUTO REBOOT TIAP 12 JAM"  | tee -a log-install.txt
+# echo "VPS AUTO REBOOT TIAP 12 JAM"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "==========================================="  | tee -a log-install.txt
 cd
