@@ -1,6 +1,5 @@
 #!/bin/bash
 #
-# Script Copyright www.fornesia.com
 # Mod by Iryadinata
 # ==================================================
 # 
@@ -69,8 +68,8 @@ cd
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
 wget -O /etc/nginx/nginx.conf "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/webserver/nginx.conf"
-mkdir -p /home/vps/public_html
-echo "<pre>Setup by Iryadinata | www.facebook.com/iryadinata</pre>" > /home/vps/public_html/index.html
+#mkdir -p /home/vps/public_html
+echo "<pre>Setup by Iryadinata | www.facebook.com/iryadinata</pre>" > /var/www/index.html
 wget -O /etc/nginx/conf.d/vps.conf "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/webserver/vps.conf"
 service nginx restart
 
@@ -107,7 +106,7 @@ screen -AmdS badvpn badvpn-udpgw --listen-addr 127.0.0.1:7300
 cd
 # setting port ssh
 sed -i 's/Port 22/Port 22/g' /etc/ssh/sshd_config
-sed -i '/Port 22/a Port 80' /etc/ssh/sshd_config
+#sed -i '/Port 22/a Port 80' /etc/ssh/sshd_config
 service ssh restart
 
 # install dropbear
@@ -179,12 +178,12 @@ echo "===========================================" | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "Service"  | tee -a log-install.txt
 echo "-------"  | tee -a log-install.txt
-echo "OpenSSH  : 22, 80"  | tee -a log-install.txt
+echo "OpenSSH  : 22"  | tee -a log-install.txt
 echo "Dropbear : 443, 143"  | tee -a log-install.txt
 echo "Squid3   : 8080, 3128 (limit to IP SSH)"  | tee -a log-install.txt
-echo "OpenVPN  : TCP 1194 (client config : http://$MYIP:81/client.ovpn)"  | tee -a log-install.txt
+echo "OpenVPN  : TCP 1194 (client config : http://$MYIP/client.ovpn)"  | tee -a log-install.txt
 echo "badvpn   : badvpn-udpgw port 7300"  | tee -a log-install.txt
-echo "nginx    : 81"  | tee -a log-install.txt
+echo "nginx    : 80"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "Script"  | tee -a log-install.txt
 echo "------"  | tee -a log-install.txt
@@ -205,8 +204,8 @@ echo "Webmin   : http://$MYIP:10000/"  | tee -a log-install.txt
 echo "Timezone : Asia/Jakarta (GMT +7)"  | tee -a log-install.txt
 echo "IPv6     : [off]"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
-echo "Original Script by Fornesia, Rzengineer & Fawzya"  | tee -a log-install.txt
-echo "Modified by Iryadinata"  | tee -a log-install.txt
+#echo "Original Script by Fornesia, Rzengineer & Fawzya"  | tee -a log-install.txt
+echo "Script Modified by Iryadinata"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "Log Instalasi --> /root/log-install.txt"  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
@@ -214,4 +213,5 @@ echo ""  | tee -a log-install.txt
 echo ""  | tee -a log-install.txt
 echo "==========================================="  | tee -a log-install.txt
 cd
+rm -rfv /var/www/html/
 rm -f /root/debian7.sh
