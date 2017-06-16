@@ -160,7 +160,7 @@ chmod +x about
 
 # finishing
 cd
-chown -R www-data:www-data /home/vps/public_html
+chown -R www-data:www-data /var/www
 service nginx start
 service openvpn restart
 service cron restart
