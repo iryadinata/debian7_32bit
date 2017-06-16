@@ -91,7 +91,7 @@ service openvpn restart
 cd /etc/openvpn/
 wget -O /etc/openvpn/client.ovpn "https://raw.githubusercontent.com/iryadinata/debian7_32bit/master/openvpn/client-1194.conf"
 sed -i $MYIP2 /etc/openvpn/client.ovpn;
-cp client.ovpn /home/vps/public_html/
+cp client.ovpn /var/www/
 
 cd
 # install badvpn
